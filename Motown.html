@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Motown Fan Page</title>
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" href="motown.css">
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+   < script type = "text/javascript"
+   src = "javascript.js" >
+       < link rel = "stylesheet"
+   type = "text/css"
+   href = "javascript.js" >
+   </script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+   <div class="container">
+       <div class="jumbotron">
+           <h1>Motown Fan Page</h1>
+           <form class="form-inline">
+               <div class="form-group">
+                   <label for="exampleInputName2">Name</label>
+                   <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+               </div>
+               <div class="form-group">
+                   <label for="exampleInputEmail2">Email</label>
+                   <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+               </div>
+               <button type="submit" class="btn btn-primary">Send invitation</button>
+           </form>
+          
+           <div id="result"></div>
+       </div>
+
+       <div class="container">
+           <div class="row">
+               <div class="col-md-1"></div>
+               <div class="col-md-4" id="motownGIFs">
+                   
+               </div>
+               <div class="col-md-1"></div>
+               <div class="col-md-5">
+                   <p> Test Your Motown Knowledge</p>
+                   <div class="list-group">
+                       <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
+                       <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
+                       <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
+                       <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                   </div>
+                   <div class="col-md-1"></div>
+               </div>
+           </div>
+       </div>
+       <div class="container">
+           <div class="footer">results</div>
+       </div>
+</body>
+<script>
+   var motownArtist = ["Smokey Robinson"]
+   var index = 0
+   $('button').on('click', function() {
+       var x = motownArtist[index].replace(/\s/, "+")
+       console.log('x is:', x)
+
+       var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=dc6zaTOxFJmzC";
+       console.log(queryURL);
+       $.ajax({
+               url: queryURL,
+               method: 'GET'
+           })
+           .done(function(response) {
+               console.log(response);
+               $('#motownGIFs').empty();
+               $('#motownGIFs').append("<p>Rating: " + response.data[0].rating + ",</p>");
+               $('#motownGIFs').append('<img src="' + response.data[0].images.downsized_medium.url+ '">')
+           })
+   })
+   </script>
+</html>
